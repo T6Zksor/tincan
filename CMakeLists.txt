@@ -10,6 +10,7 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 
 set(MY_SRCS
     src/main.cc
+    src/shader_s.h
 )
 
 add_executable(${PROJECT_NAME} ${MY_SRCS})

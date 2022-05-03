@@ -7,6 +7,6 @@ Push-Location -Path $BuildOut
 Write-Host "current directory $BuildOut"
 
 cmake .. -A Win32 -DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake
-cmake --build .
+REM cmake --build .
 
 Pop-Location
