@@ -8,12 +8,15 @@ project(
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     PROPERTY VS_STARTUP_PROJECT ${PROJECT_NAME})
 
-set(MY_SRCS
-    src/main.cc
-    src/shader_s.h
+FILE(GLOB MY_SRCS
+    src/*.cc
+    src/*.h
+    )
+
+list(APPEND MY_SRCS
     src/3.3.shader.fs
     src/3.3.shader.vs
-)
+    )
 
 add_executable(${PROJECT_NAME} ${MY_SRCS})
 
