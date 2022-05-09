@@ -11,12 +11,14 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 FILE(GLOB MY_SRCS
     src/*.cc
     src/*.h
+    src/*.vs
+    src/*.fs
     )
 
-list(APPEND MY_SRCS
-    src/3.3.shader.fs
-    src/3.3.shader.vs
-    )
+#list(APPEND MY_SRCS
+    #src/3.3.shader.fs
+    #src/3.3.shader.vs
+    #)
 
 add_executable(${PROJECT_NAME} ${MY_SRCS})
 
