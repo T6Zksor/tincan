@@ -30,7 +30,7 @@ float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
 // lighting
-glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+glm::vec3 lightPos(0.0f, 0.0f, 2.0f);
 
 int main()
 {
@@ -147,8 +147,10 @@ int main()
 	glEnableVertexAttribArray(0);
 
 	unsigned int diffuseMap = loadTexture("../resources/container2.png");
+	unsigned int specularMap = loadTexture("../resources/container2_specular.png");
     lightingShader.use(); 
     lightingShader.setInt("material.diffuse", 0);
+    lightingShader.setInt("material.specular", 1);
 
 	// render loop
 	// -----------
@@ -182,7 +184,13 @@ int main()
         lightingShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
         lightingShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
-		lightingShader.setVec3("light.position", lightPos);
+		auto angle = glfwGetTime();
+		int radius = 3;
+		auto lightPos2 = lightPos;
+		lightPos2.x = lightPos.x + sin(angle) * radius;
+		lightPos2.z = lightPos.z + cos(angle) * radius;
+
+		lightingShader.setVec3("light.position", lightPos2);
 
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
@@ -195,8 +203,10 @@ int main()
 		lightingShader.setMat4("model", model);
 		lightingShader.setVec3("viewPos", camera.Position);
 
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, diffuseMap);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, specularMap);
 
 		// render the cube
 		glBindVertexArray(cubeVAO);
@@ -208,7 +218,7 @@ int main()
 		lightCubeShader.setMat4("projection", projection);
 		lightCubeShader.setMat4("view", view);
 		model = glm::mat4(1.0f);
-		model = glm::translate(model, lightPos);
+		model = glm::translate(model, lightPos2);
 		model = glm::scale(model, glm::vec3(0.2f)); // a smaller cube
 		lightCubeShader.setMat4("model", model);
 
