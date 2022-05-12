@@ -217,6 +217,10 @@ int main()
 		lightingShader.setVec3("viewPos", camera.Position);
 		lightingShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
 
+		lightingShader.setFloat("light.constant", 1.0f);
+		lightingShader.setFloat("light.linear", 0.09f);
+		lightingShader.setFloat("light.quadratic", 0.032f);
+
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, diffuseMap);
 		glActiveTexture(GL_TEXTURE1);
