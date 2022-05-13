@@ -10,6 +10,7 @@
 
 #include "shader_m.h"
 #include "camera.h"
+#include "model.h"
 
 #define WINDOW_WIDTH	1600
 #define WINDOW_HEIGHT	1200
