@@ -11,8 +11,9 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 FILE(GLOB MY_SRCS
     src/*.cc
     src/*.h
-    src/*.vs
-    src/*.fs
+
+    src/*.vert
+    src/*.frag
     )
 
 #list(APPEND MY_SRCS
