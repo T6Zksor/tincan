@@ -4,15 +4,12 @@ out vec4 FragColor;
 in vec2 TexCoords;
 
 uniform sampler2D texture1;
-uniform bool draw_outlining = false;
 
 void main()
 {    
-    if (draw_outlining) {
-		FragColor = vec4(0.04, 0.28, 0.26, 1.0);
-    }
-    else {
-		FragColor = texture(texture1, TexCoords);
-    }
+    vec4 texColor = texture(texture1, TexCoords);
+    if(texColor.a < 0.1)
+        discard;
+    FragColor = texColor;
 	//FragColor = texture(texture1, TexCoords);
 }
