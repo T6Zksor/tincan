@@ -12,14 +12,10 @@ FILE(GLOB MY_SRCS
     src/*.cc
     src/*.h
 
-    src/*.vert
-    src/*.frag
+    src/*.vs
+    src/*.fs
+    src/*.gs
     )
-
-#list(APPEND MY_SRCS
-    #src/3.3.shader.fs
-    #src/3.3.shader.vs
-    #)
 
 add_executable(${PROJECT_NAME} ${MY_SRCS})
 
