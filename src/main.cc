@@ -88,6 +88,8 @@ int main()
 	// -----------
 	//Model ourModel("../resources/objects/backpack/backpack.obj");
 
+    Model nanosuit("../resources/objects/nanosuit/nanosuit.obj"); 
+
 	// set up vertex data (and buffer(s)) and configure vertex attributes
 	// ------------------------------------------------------------------
 	float points[] = {
@@ -147,10 +149,20 @@ int main()
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		// draw points
+		// configure transformation matrices
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)SCR_WIDTH / (float)SCR_HEIGHT, 1.0f, 100.0f);
+		glm::mat4 view = camera.GetViewMatrix();;
+		glm::mat4 model = glm::mat4(1.0f);
 		shader.use();
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_POINTS, 0, 4);
+		shader.setMat4("projection", projection);
+		shader.setMat4("view", view);
+		shader.setMat4("model", model);
+
+		// add time component to geometry shader in the form of a uniform
+		shader.setFloat("time", static_cast<float>(glfwGetTime()));
+
+		// draw model
+		nanosuit.Draw(shader);
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
