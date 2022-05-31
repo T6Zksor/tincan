@@ -78,11 +78,12 @@ int main()
 	//glCullFace(GL_FRONT);
 	//glFrontFace(GL_CW);
 
-	//stbi_set_flip_vertically_on_load(true);
+	stbi_set_flip_vertically_on_load(true);
 
 	// build and compile shaders
 	// -------------------------
-	Shader shader("../src/geometry_shader.vs", "../src/geometry_shader.fs", "../src/geometry_shader.gs");
+	Shader shader("../src/default.vs", "../src/default.fs");
+	Shader normalShader("../src/normal_visualization.vs", "../src/normal_visualization.fs", "../src/normal_visualization.gs");
 	
 	// load models
 	// -----------
@@ -158,11 +159,17 @@ int main()
 		shader.setMat4("view", view);
 		shader.setMat4("model", model);
 
-		// add time component to geometry shader in the form of a uniform
-		shader.setFloat("time", static_cast<float>(glfwGetTime()));
-
-		// draw model
+		// draw model as usual
 		nanosuit.Draw(shader);
+
+		// then draw model with normal visualizing geometry shader
+		normalShader.use();
+		normalShader.setMat4("projection", projection);
+		normalShader.setMat4("view", view);
+		normalShader.setMat4("model", model);
+
+		nanosuit.Draw(normalShader);
+
 
 		// glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 		// -------------------------------------------------------------------------------
