@@ -76,7 +76,7 @@ int main()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_FRAMEBUFFER_SRGB);
+	//glEnable(GL_FRAMEBUFFER_SRGB);
 
 	//glEnable(GL_MULTISAMPLE);
 	//glDepthFunc(GL_LESS);
@@ -203,7 +203,8 @@ int main()
 		// floor
 		glBindVertexArray(planeVAO);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, gammaEnabled ? floorTextureGammaCorrected : floorTexture);
+		//glBindTexture(GL_TEXTURE_2D, gammaEnabled ? floorTextureGammaCorrected : floorTexture);
+		glBindTexture(GL_TEXTURE_2D, floorTextureGammaCorrected);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 
 		std::cout << (gammaEnabled ? "Gamma enabled" : "Gamma disabled") << std::endl;
